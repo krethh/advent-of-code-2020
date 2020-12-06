@@ -3,8 +3,6 @@ package days.day6
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.*
-import java.util.stream.Collectors
 import java.util.stream.IntStream
 import kotlin.streams.toList
 
@@ -24,7 +22,7 @@ object Day6 {
 
         val rangePairs = IntStream
             .range(0, blankLineIndexes.size - 1)
-            .mapToObj{ Pair(blankLineIndexes[it], blankLineIndexes[it + 1])}
+            .mapToObj { Pair(blankLineIndexes[it], blankLineIndexes[it + 1]) }
             .toList()
             .toMutableList()
 
@@ -39,7 +37,7 @@ object Day6 {
         println(groups.map { it.getCountOfDistinctAnswers() }
             .sum())
 
-        println(groups.map { it.getCountOfEveryoneYesAnswers()}
+        println(groups.map { it.getCountOfEveryoneYesAnswers() }
             .sum())
     }
 }
