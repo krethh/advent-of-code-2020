@@ -7,38 +7,58 @@ import java.nio.file.Path
 
 object Day10 {
 
+    var jumps = mutableListOf<Pair<Int, Int>>()
+    lateinit var joltages: MutableList<Int>
+
     @JvmStatic
     @Throws(IOException::class)
     fun solve(input: Path?) {
-        val joltages = Files.readAllLines(input).map { it.toInt() }.sorted().toMutableList()
+        joltages = Files.readAllLines(input).map { it.toInt() }.sorted().toMutableList()
         joltages.add(0, 0)
 
-        val myAdapter = joltages.max()!! + 3
-
-        var differences = mutableMapOf(1 to 0, 2 to 0, 3 to 0)
-
-        for (i in 0..joltages.size - 2) {
-            val difference = joltages[i + 1] - joltages[i]
-            differences[difference] = differences[difference]!! + 1
-        }
-
-        differences[3] = differences[3]!! + 1
-
-        println(differences[3]!! * differences[1]!!)
-        println(differences)
-        println(findPaths(joltages, joltages[0], joltages.max()!!))
+        findPairs(joltages)
+        countPaths(0, joltages.max()!!, 300)
     }
 
-    fun findPaths(joltages: List<Int>, fromNode: Int, end: Int): BigInteger {
-        if (fromNode == end) {
-            return BigInteger.ONE
-        } else {
-            val eligibleNextNodes = joltages.filter { it - fromNode in 1..3 }.toList()
+    fun findPairs(joltages: List<Int>) {
+       for (i in joltages.indices) {
+           val eligibleNextNodes = joltages.filter { it - joltages[i] in 1..3 }.toList()
+           eligibleNextNodes.forEach { node ->
+               jumps.add(Pair(joltages[i], node))
+           }
+       }
+    }
 
-            return eligibleNextNodes.map { eligibleNextNode ->
-                val joltagesMinusThisNodeAndSmaller = joltages.filter { it > eligibleNextNode }.toList()
-                findPaths(joltagesMinusThisNodeAndSmaller, eligibleNextNode, end)
-            }.reduce(BigInteger::add)
+    fun countPaths(sourceV: Int, targetV: Int, numEdges: Int) {
+        var count = mutableMapOf<Triple<Int, Int, Int>, BigInteger>()
+
+        for (e in 0..numEdges) {
+            for (source in joltages) {
+                for (target in joltages) {
+                    count[Triple(source, target, e)] = BigInteger.ZERO
+
+                    if (e == 0 && source == target) {
+                        count[Triple(source, target, e)] = BigInteger.ONE
+                    }
+                    if (e == 1 && jumps.find { it.first == source && it.second == target } != null) {
+                        count[Triple(source, target, e)] = BigInteger.ONE
+                    }
+
+                    if (e > 1) {
+                        for (a in joltages) {
+                            if (jumps.find { it.first == source && it.second == a } != null) {
+                                count[Triple(source, target, e)] = count[Triple(source, target, e)]!! + count[Triple(a, target, e - 1)]!!
+                            }
+                        }
+                    }
+                }
+            }
         }
+
+        var sum: BigInteger = BigInteger.ZERO
+        for (i in 0..numEdges) {
+            sum += count[Triple(sourceV, targetV, i)]!!
+        }
+        println(sum)
     }
 }
