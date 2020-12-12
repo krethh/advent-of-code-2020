@@ -1,6 +1,7 @@
 import days.day1.Day1;
 import days.day10.Day10;
 import days.day11.Day11;
+import days.day12.Day12;
 import days.day2.Day2;
 import days.day3.Day3;
 import days.day4.Day4;
@@ -26,7 +27,8 @@ public class Main {
 //        Day8.solve(Paths.get("C:\\java-workspace\\advent-of-code-2020\\src\\resources\\day8.txt"));
 //        Day9.solve(Paths.get("C:\\java-workspace\\advent-of-code-2020\\src\\resources\\day9.txt"));
 //        Day10.solve(Paths.get("C:\\java-workspace\\advent-of-code-2020\\src\\resources\\day10.txt"));
-        Day11.solve(Paths.get("C:\\java-workspace\\advent-of-code-2020\\src\\resources\\day11.txt"));
+//        Day11.solve(Paths.get("C:\\java-workspace\\advent-of-code-2020\\src\\resources\\day11.txt"));
+        Day12.solve(Paths.get("C:\\java-workspace\\advent-of-code-2020\\src\\resources\\day12.txt"));
     }
 }
 
