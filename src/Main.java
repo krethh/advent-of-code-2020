@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 import days.day13.Day13;
-=======
 import days.day1.Day1;
 import days.day10.Day10;
 import days.day11.Day11;
@@ -13,7 +11,6 @@ import days.day6.Day6;
 import days.day7.Day7;
 import days.day8.Day8;
 import days.day9.Day9;
->>>>>>> 95a875d33f6dfd536e216a84e5ab53dd9ec7328b
 
 import java.io.IOException;
 import java.nio.file.Paths;
