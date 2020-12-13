@@ -1,11 +1,11 @@
-package days.day12
+package days.day13
 
 import java.io.IOException
 import java.math.BigInteger
 import java.nio.file.Files
 import java.nio.file.Path
 
-object Day12 {
+object Day13 {
     @JvmStatic
     @Throws(IOException::class)
     fun solve(input: Path?) {
